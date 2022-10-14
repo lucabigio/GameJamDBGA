@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 165809014297572076}
   m_Layer: 0
   m_Name: AllOpenPipe
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,3 +99,5 @@ MonoBehaviour:
   isOpenLeft: 1
   isOpenUp: 1
   isOpenDown: 1
+  hasNext: 0
+  nextPipe: {fileID: 0}
