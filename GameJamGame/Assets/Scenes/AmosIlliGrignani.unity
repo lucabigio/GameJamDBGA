@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridCell: {fileID: 5336073258819846569, guid: f1a5899677ce50843ad582a32646b4ce, type: 3}
-  height: 7
-  width: 7
+  height: 13
+  width: 13
   cellSpawnOffset: 1
   Pipes:
   - {fileID: 886952313621619842, guid: 82e32b66b84a27541b5f2ce160933b90, type: 3}
@@ -194,6 +194,8 @@ MonoBehaviour:
   - {fileID: 4611765867412124683, guid: 6d78760309321874b86bfcfaaa05e4ec, type: 3}
   - {fileID: 82940239589732300, guid: 10bb2d05b90676c48b0138c7ee5fd234, type: 3}
   startingPoint: {x: -5, y: -2, z: 0}
+  usedPipes: []
+  _cam: {fileID: 1694634203}
 --- !u!4 &1193401685
 Transform:
   m_ObjectHideFlags: 0

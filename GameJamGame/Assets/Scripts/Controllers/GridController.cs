@@ -14,11 +14,13 @@ public class GridController : MonoBehaviour
     Vector3 startingPoint;
     [SerializeField]
     List<GameObject> usedPipes;
+    [SerializeField] private Transform _cam;
     void Awake()
     {
         
         CreateGrid();
         FindPath();
+        CenterCamera();
     }
 
     void Update()
@@ -213,5 +215,31 @@ public class GridController : MonoBehaviour
             return freeCells[randomIndex];
         }
         return new Vector2Int(-1, -1);
+    }
+
+    private void CenterCamera()
+    {
+        //Adjusting camera center and orthographic Size, according to grid size
+        _cam.transform.position = new Vector3(grid[width / 2, height / 2].GetComponent<GridCell>().transform.position.x,
+                                              grid[width / 2, height / 2].GetComponent<GridCell>().transform.position.y,
+                                              _cam.transform.position.z);
+        while (!CameraCanSee(grid[width - 1, height - 1].GetComponent<GridCell>().transform))
+        {
+            _cam.gameObject.GetComponent<Camera>().orthographicSize += 2;
+        }
+        _cam.gameObject.GetComponent<Camera>().orthographicSize += 1;
+
+
+
+    }
+
+    private bool CameraCanSee(Transform gameObject)
+    {
+        Camera camera = _cam.gameObject.GetComponent<Camera>();
+        Vector3 res = camera.WorldToViewportPoint(gameObject.position);
+        if (res.x >= 0 && res.x <= 1 &&
+            res.y >= 0 && res.y <= 1 &&
+            res.z > 0) return true;
+        return false;
     }
 }
