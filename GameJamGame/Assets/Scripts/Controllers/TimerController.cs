@@ -10,41 +10,79 @@ public class TimerController : MonoSingleton<TimerController>
     //[SerializeField] 
     public TextMeshProUGUI _text;
     public float timeToCount;
-    private bool stopTimer;
+    private bool endTimer;
+    private bool pauseTimer;
     private Coroutine timerCoroutine;
+    private float initialTime;
+    private float pauseStart;
+    private float requestTime;
+
     private void Start()
     {
     }
     public void ResetTimer()
     {
         if(timerCoroutine != null) StopCoroutine(timerCoroutine);
-        stopTimer = false;
+        endTimer = false;
+        pauseTimer = false;
         _slider.maxValue = timeToCount;
         _slider.value = timeToCount;
     }
     public void StartTimer()
     {
         ResetTimer();
-        float initialTime = Time.time;
-        timerCoroutine = StartCoroutine(StartTimerCount(initialTime));
+        requestTime = Time.time;
+        initialTime = Time.time;
+        timerCoroutine = StartCoroutine(StartTimerCount());
     }
 
-    IEnumerator StartTimerCount(float initialTime)
+    public void AddTime(float secondsToAdd)
     {
-        while (!stopTimer)
+        timeToCount += secondsToAdd;
+        _slider.maxValue = timeToCount;
+    }
+
+    public void pauseTime()
+    {
+        pauseTimer = true;
+        pauseStart = Time.time;
+    }
+    public void continueTime()
+    {
+        float elapsedFromPause = Time.time - pauseStart;
+        pauseTimer = false;
+        initialTime += elapsedFromPause;
+    }
+
+    IEnumerator StartTimerCount()
+    {
+        while (!endTimer)
         {
-            float elapsedTime = Time.time - initialTime;
-            float time = timeToCount - elapsedTime;
-            int minutes = Mathf.FloorToInt(time / 60);
-            int seconds = Mathf.FloorToInt(time - minutes * 60f);
-            if (time <= 0)
-                stopTimer = true;
-            else
+            if (!pauseTimer)
             {
-                _text.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-                _slider.value = time;
+                float elapsedTime = Time.time - initialTime;
+                float time = timeToCount - elapsedTime;
+                int minutes = Mathf.FloorToInt(time / 60);
+                int seconds = Mathf.FloorToInt(time - minutes * 60f);
+                if (time <= 0)
+                    endTimer = true;
+                else
+                {
+                    _text.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+                    _slider.value = time;
+                }
             }
             yield return null;
         }
+    }
+
+    public float timeElapsedFromRequest()
+    {
+        return Time.time - requestTime;
+    }
+
+    public void RequestTime()
+    {
+        requestTime = Time.time;
     }
 }

@@ -17,6 +17,7 @@ public class LevelController : MonoSingleton<LevelController>
         //Setting the timer
         TimerController.Instance.timeToCount = 120;
         TimerController.Instance.StartTimer();
+        TimerController.Instance.RequestTime();
     }
 
     public void Won()
@@ -32,7 +33,13 @@ public class LevelController : MonoSingleton<LevelController>
         int pathLength = FindObjectOfType<GridController>().pathLength - 1;
         int pipesUsed = FindObjectOfType<GridController>().howMuchPipesAreUsed();
         Debug.Log("Created Path length:" + pathLength + " while Pipes used: "+pipesUsed);
-        yield return new WaitForSeconds(1f);
+        TimerController.Instance.pauseTime();
+        float timeElapsed = TimerController.Instance.timeElapsedFromRequest();
+        Debug.Log("Time elapsed: "+timeElapsed);
+        yield return new WaitForSeconds(4f);
+        TimerController.Instance.AddTime(10);
         FindObjectOfType<GridController>().CreateLevel(7, 7);
+        TimerController.Instance.continueTime();
+        TimerController.Instance.RequestTime();
     }
 }
