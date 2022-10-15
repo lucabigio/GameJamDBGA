@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Utility\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\MapPosition.cs" />
     <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TimerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
