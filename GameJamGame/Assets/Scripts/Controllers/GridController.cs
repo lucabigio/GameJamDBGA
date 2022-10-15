@@ -223,6 +223,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 else if (pipePositions[i].y == pipePositions[i + 1].y && pipePositions[i].x < pipePositions[i + 1].x)
@@ -233,6 +234,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 else
@@ -243,6 +245,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
             }
@@ -255,6 +258,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 if (pipePositions[i].x < pipePositions[i + 1].x)
@@ -264,6 +268,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 if (pipePositions[i].x > pipePositions[i + 1].x)
@@ -273,6 +278,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
             }
@@ -285,6 +291,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 if (pipePositions[i].y < pipePositions[i + 1].y)
@@ -294,6 +301,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
             }
@@ -306,6 +314,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
                 if (pipePositions[i].y < pipePositions[i + 1].y)
@@ -315,6 +324,7 @@ public class GridController : MonoSingleton<GridController>
                     if (ExistInArray(pipePositions[i], notMovingIndexes))
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
+                        grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
                     }
                 }
             }

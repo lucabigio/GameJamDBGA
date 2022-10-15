@@ -10,6 +10,7 @@ public class GridCell : MonoBehaviour
     public GameObject lastPipe;
     public bool canBeClicked = true;
     [SerializeField] GameObject _highlight;
+    [SerializeField] GameObject _cantMoved;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class GridCell : MonoBehaviour
     void Update()
     {
         
+    }
+    public void setCantMove()
+    {
+        _cantMoved.SetActive(true);
     }
 
     public void SetPipe(GameObject pipe)
