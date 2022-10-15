@@ -76,18 +76,14 @@ public class GridController : MonoSingleton<GridController>
         height = _h;
         width = _w;
         CreateGrid();
-        //pathLength = ManhattanDistance()
-        pathLength = (int)(grid.GetLength(0) * grid.GetLength(1)) / 3;
+        pathLength = Random.Range( 2 * height, 4 * height  );
+        //pathLength = (int)(grid.GetLength(0) * grid.GetLength(1)) / 3;
         CreatePerfectPath(pathLength);
         _cam.gameObject.GetComponent<Camera>().orthographicSize -= 1;
         CenterCamera();
         if (DoIWon()) LevelController.Instance.Won();
     }
 
-    private int ManhattanDistance(Vector2Int a, Vector2Int b )
-    {
-        return System.Math.Abs(a.x - b.x) + System.Math.Abs(a.y - b.y);
-    }
 
     private void CreateGrid()
     {
