@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum FlowDirection
+{
+    Top,
+    Left,
+    Right,
+    Bottom
+}
+
 public class GridController : MonoSingleton<GridController>
 {
 
@@ -30,12 +38,13 @@ public class GridController : MonoSingleton<GridController>
 
     private void Start()
     {
-        hasPickedUpPiece = false;
+        /*hasPickedUpPiece = false;
         CreateGrid();
         CreatePerfectPath((int)(grid.GetLength(0)* grid.GetLength(1))/3);
         //FindPath();
         //InsertPipe(pipePositions);
-        CenterCamera();
+        CenterCamera();*/
+        //CreateLevel(height, width);
     }
 
     
@@ -43,6 +52,30 @@ public class GridController : MonoSingleton<GridController>
     void Update()
     {
         
+    }
+
+    public void CreateLevel(int _h, int _w)
+    {
+        hasPickedUpPiece = false;
+        if (grid != null && grid.Length > 0)
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    Destroy(grid[i, j].GetComponent<GridCell>().PipeSprite);
+                    Destroy(grid[i, j]);
+                }
+            }
+            System.Array.Clear(grid, 0, grid.Length);
+        }
+        height = _h;
+        width = _w;
+        CreateGrid();
+        CreatePerfectPath((int)(grid.GetLength(0) * grid.GetLength(1)) / 3);
+        _cam.gameObject.GetComponent<Camera>().orthographicSize -= 1;
+        CenterCamera();
+        if (DoIWon()) LevelController.Instance.Won();
     }
 
 
@@ -323,5 +356,82 @@ public class GridController : MonoSingleton<GridController>
             res.y >= 0 && res.y <= 1 &&
             res.z > 0) return true;
         return false;
+    }
+
+    private bool CheckVictory(Vector2Int position, FlowDirection flowDir) {
+        if(position.x < 0 || position.y < 0 || position.x >= width || position.y >= height) return false;
+
+        GameObject pipeSprite = grid[position.x, position.y].GetComponent<GridCell>().PipeSprite;
+        if(pipeSprite != null)
+        {
+            Pipe attachedPipe = pipeSprite.GetComponent<Pipe>();
+            switch (flowDir)
+            {
+                case FlowDirection.Top:
+                    if (attachedPipe.isOpenUp)
+                    {
+                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        bool won = false;
+                        //Dai corrente nelle altre direzioni
+                        if (attachedPipe.isOpenDown) won = won || CheckVictory(new Vector2Int(position.x, position.y - 1), FlowDirection.Top);
+                        if (attachedPipe.isOpenLeft) won = won || CheckVictory(new Vector2Int(position.x - 1, position.y), FlowDirection.Right);
+                        if (attachedPipe.isOpenRight) won = won || CheckVictory(new Vector2Int(position.x + 1, position.y), FlowDirection.Left);
+
+                        if (position == startPosition && attachedPipe.isOpenDown) won = true;
+                        return won;
+                    }
+                    break;
+                case FlowDirection.Left:
+                    if (attachedPipe.isOpenLeft)
+                    {
+                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //Dai corrente nelle altre direzioni
+                        bool won = false;
+                        //Dai corrente nelle altre direzioni
+                        if (attachedPipe.isOpenDown)  won = won || CheckVictory(new Vector2Int(position.x, position.y - 1), FlowDirection.Top);
+                        if (attachedPipe.isOpenUp)    won = won || CheckVictory(new Vector2Int(position.x, position.y + 1), FlowDirection.Bottom);
+                        if (attachedPipe.isOpenRight) won = won || CheckVictory(new Vector2Int(position.x + 1, position.y), FlowDirection.Left);
+
+                        if (position == startPosition && attachedPipe.isOpenDown) won = true ;
+                        return won;
+                    }
+                    break;
+                case FlowDirection.Right:
+                    if (attachedPipe.isOpenRight)
+                    {
+                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        bool won = false;
+                        //Dai corrente nelle altre direzioni
+                        if (attachedPipe.isOpenDown) won = won || CheckVictory(new Vector2Int(position.x, position.y - 1), FlowDirection.Top);
+                        if (attachedPipe.isOpenUp)   won = won || CheckVictory(new Vector2Int(position.x, position.y + 1), FlowDirection.Bottom);
+                        if (attachedPipe.isOpenLeft) won = won || CheckVictory(new Vector2Int(position.x - 1, position.y), FlowDirection.Right);
+
+                        if (position == startPosition && attachedPipe.isOpenDown) won = true;
+                        return won;
+                    }
+                    break;
+                case FlowDirection.Bottom:
+                    if (attachedPipe.isOpenDown)
+                    {
+                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //Dai corrente nelle altre direzioni
+                        bool won = false;
+                        //Dai corrente nelle altre direzioni
+                        if (attachedPipe.isOpenRight) won = won || CheckVictory(new Vector2Int(position.x + 1, position.y), FlowDirection.Left);
+                        if (attachedPipe.isOpenUp)   won = won || CheckVictory(new Vector2Int(position.x, position.y + 1), FlowDirection.Bottom);
+                        if (attachedPipe.isOpenLeft) won = won || CheckVictory(new Vector2Int(position.x - 1, position.y), FlowDirection.Right);
+
+                        return won;
+
+                    }
+                    break;
+            }
+        }
+        return false;
+    }
+
+    public bool DoIWon()
+    {
+        return CheckVictory(endPosition, FlowDirection.Top);
     }
 }

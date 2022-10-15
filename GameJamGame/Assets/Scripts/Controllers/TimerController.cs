@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimerController : MonoBehaviour
+public class TimerController : MonoSingleton<TimerController>
 {
     [SerializeField] Slider _slider;
     //[SerializeField] 
     public TextMeshProUGUI _text;
     public float timeToCount;
     private bool stopTimer;
-
+    private Coroutine timerCoroutine;
     private void Start()
     {
-        ResetTimer();
     }
     public void ResetTimer()
     {
+        if(timerCoroutine != null) StopCoroutine(timerCoroutine);
         stopTimer = false;
         _slider.maxValue = timeToCount;
         _slider.value = timeToCount;
@@ -25,7 +25,7 @@ public class TimerController : MonoBehaviour
     public void StartTimer()
     {
         float initialTime = Time.time;
-        StartCoroutine(StartTimerCount(initialTime));
+        timerCoroutine = StartCoroutine(StartTimerCount(initialTime));
     }
 
     IEnumerator StartTimerCount(float initialTime)

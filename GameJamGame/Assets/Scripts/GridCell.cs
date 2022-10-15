@@ -9,6 +9,7 @@ public class GridCell : MonoBehaviour
     public bool taken;
     public GameObject lastPipe;
     public bool canBeClicked = true;
+    [SerializeField] GameObject _highlight;
 
     void Start()
     {
@@ -46,8 +47,13 @@ public class GridCell : MonoBehaviour
         taken = false;
     }
 
+    private void OnMouseExit()
+    {
+        _highlight.SetActive(false);
+    }
     private void OnMouseOver()
     {
+        _highlight.SetActive(true);
         if (canBeClicked)
         {
             if (Input.GetMouseButtonDown(0))
@@ -101,6 +107,7 @@ public class GridCell : MonoBehaviour
                         lastPipe.tag = "Pipe";
                     }
                 }
+                if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
             }
             else if (Input.GetMouseButtonDown(1))
             {
@@ -111,6 +118,7 @@ public class GridCell : MonoBehaviour
                     PipeSprite = null;
                     SetPipe(newPipe.GetComponent<Pipe>().ShowNext());
                 }
+                if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
             }
         }
     }
