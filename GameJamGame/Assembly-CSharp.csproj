@@ -67,8 +67,13 @@
     <Compile Include="Assets\Scripts\MapPosition.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIGameController.cs" />
+=======
+    <Compile Include="Assets\Scripts\Controllers\UIGameController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
