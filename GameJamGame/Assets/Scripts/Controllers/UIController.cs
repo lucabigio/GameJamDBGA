@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
-    
+    [SerializeField] GameObject _mainMenuCanvas;
+    [SerializeField] GameObject _settingsCanvas;
 
     public void StartGame()
     {
@@ -15,5 +16,17 @@ public class UIController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void OpenSettings()
+    {
+        _mainMenuCanvas.SetActive(false);
+        _settingsCanvas.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        _mainMenuCanvas.SetActive(true);
+        _settingsCanvas.SetActive(false);
     }
 }

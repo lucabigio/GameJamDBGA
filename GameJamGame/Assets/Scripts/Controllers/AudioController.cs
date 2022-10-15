@@ -10,7 +10,8 @@ public class AudioController : MonoSingleton<AudioController>
 
     private void Start()
     {
-        GetComponent<AudioLowPassFilter>().enabled = false;
+        AudioLowPassFilter alps = GetComponent<AudioLowPassFilter>();
+        if(alps != null) alps.enabled = false;
         AudioSources[1].ignoreListenerPause = true;
         AudioSources[2].ignoreListenerPause = true;
     }
