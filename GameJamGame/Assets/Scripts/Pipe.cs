@@ -14,6 +14,11 @@ public class Pipe : MonoBehaviour
 
     public bool CanBeMoved;
     Vector3 mousePosition;
+    public bool hasCurrent { get; set; }
+    private void Start()
+    {
+        hasCurrent = false;
+    }
 
     void FixedUpdate()
     {

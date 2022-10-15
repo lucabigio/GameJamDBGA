@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 enum FlowDirection
 {
@@ -28,6 +29,8 @@ public class GridController : MonoSingleton<GridController>
     private Transform _cam;
     List<Vector2Int> pipePositions;
 
+
+    public int pathLength { get; set; }
     Vector2Int startPosition;
     Vector2Int endPosition;
 
@@ -72,12 +75,18 @@ public class GridController : MonoSingleton<GridController>
         height = _h;
         width = _w;
         CreateGrid();
-        CreatePerfectPath((int)(grid.GetLength(0) * grid.GetLength(1)) / 3);
+        //pathLength = ManhattanDistance()
+        pathLength = (int)(grid.GetLength(0) * grid.GetLength(1)) / 3;
+        CreatePerfectPath(pathLength);
         _cam.gameObject.GetComponent<Camera>().orthographicSize -= 1;
         CenterCamera();
         if (DoIWon()) LevelController.Instance.Won();
     }
 
+    private int ManhattanDistance(Vector2Int a, Vector2Int b )
+    {
+        return System.Math.Abs(a.x - b.x) + System.Math.Abs(a.y - b.y);
+    }
 
     private void CreateGrid()
     {
@@ -139,12 +148,12 @@ public class GridController : MonoSingleton<GridController>
 
     void CreatePerfectPath(int tilesNumber)
     {
-        tilesNumber = FindPerfectPath();
-        while (tilesNumber != 12)
+        int tileUsed = FindPerfectPath();
+        while (tileUsed != tilesNumber)
         {
             ResetGrid();
-            tilesNumber = FindPerfectPath();
-            Debug.Log(tilesNumber + " ," + pipePositions.Count);
+            tileUsed = FindPerfectPath();
+            //Debug.Log(tilesNumber + " ," + pipePositions.Count);
         }
         InsertPipe(pipePositions);
     }
@@ -362,7 +371,7 @@ public class GridController : MonoSingleton<GridController>
         if(position.x < 0 || position.y < 0 || position.x >= width || position.y >= height) return false;
 
         GameObject pipeSprite = grid[position.x, position.y].GetComponent<GridCell>().PipeSprite;
-        if(pipeSprite != null)
+        if (pipeSprite != null)
         {
             Pipe attachedPipe = pipeSprite.GetComponent<Pipe>();
             switch (flowDir)
@@ -371,6 +380,7 @@ public class GridController : MonoSingleton<GridController>
                     if (attachedPipe.isOpenUp)
                     {
                         pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        attachedPipe.hasCurrent = true;
                         bool won = false;
                         //Dai corrente nelle altre direzioni
                         if (attachedPipe.isOpenDown) won = won || CheckVictory(new Vector2Int(position.x, position.y - 1), FlowDirection.Top);
@@ -385,6 +395,7 @@ public class GridController : MonoSingleton<GridController>
                     if (attachedPipe.isOpenLeft)
                     {
                         pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        attachedPipe.hasCurrent = true;
                         //Dai corrente nelle altre direzioni
                         bool won = false;
                         //Dai corrente nelle altre direzioni
@@ -400,6 +411,7 @@ public class GridController : MonoSingleton<GridController>
                     if (attachedPipe.isOpenRight)
                     {
                         pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        attachedPipe.hasCurrent = true;
                         bool won = false;
                         //Dai corrente nelle altre direzioni
                         if (attachedPipe.isOpenDown) won = won || CheckVictory(new Vector2Int(position.x, position.y - 1), FlowDirection.Top);
@@ -414,6 +426,7 @@ public class GridController : MonoSingleton<GridController>
                     if (attachedPipe.isOpenDown)
                     {
                         pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        attachedPipe.hasCurrent = true;
                         //Dai corrente nelle altre direzioni
                         bool won = false;
                         //Dai corrente nelle altre direzioni
@@ -432,6 +445,56 @@ public class GridController : MonoSingleton<GridController>
 
     public bool DoIWon()
     {
-        return CheckVictory(endPosition, FlowDirection.Top);
+        clearPipes();
+        if(CheckVictory(endPosition, FlowDirection.Top))
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    grid[i, j].GetComponent<GridCell>().canBeClicked = false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public int howMuchPipesAreUsed()
+    {
+        int pipeUsed = 0;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                GameObject pipeSprite = grid[i, j].GetComponent<GridCell>().PipeSprite;
+                if (pipeSprite != null)
+                {
+                    Pipe attachedPipe = pipeSprite.GetComponent<Pipe>();
+                    if (attachedPipe.hasCurrent)
+                    {
+                        pipeUsed++;
+                    }
+                }
+            }
+        }
+        return pipeUsed;
+    }
+
+    public void clearPipes()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                GameObject pipeSprite = grid[i, j].GetComponent<GridCell>().PipeSprite;
+                if (pipeSprite != null)
+                {
+                    Pipe attachedPipe = pipeSprite.GetComponent<Pipe>();
+                    pipeSprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    attachedPipe.hasCurrent = false;
+                }
+            }
+        }
     }
 }

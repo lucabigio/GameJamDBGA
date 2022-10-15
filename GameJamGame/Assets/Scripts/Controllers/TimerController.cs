@@ -24,6 +24,7 @@ public class TimerController : MonoSingleton<TimerController>
     }
     public void StartTimer()
     {
+        ResetTimer();
         float initialTime = Time.time;
         timerCoroutine = StartCoroutine(StartTimerCount(initialTime));
     }

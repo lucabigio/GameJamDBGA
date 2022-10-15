@@ -29,6 +29,9 @@ public class LevelController : MonoSingleton<LevelController>
         //Add Score
         Debug.Log("YOU WON THE LEVEL. 50 POINTS HAS BEEN ASSIGNED TO YOU");
         UIGameController.Instance.updateHighscoreText(50);
+        int pathLength = FindObjectOfType<GridController>().pathLength - 1;
+        int pipesUsed = FindObjectOfType<GridController>().howMuchPipesAreUsed();
+        Debug.Log("Created Path length:" + pathLength + " while Pipes used: "+pipesUsed);
         yield return new WaitForSeconds(1f);
         FindObjectOfType<GridController>().CreateLevel(7, 7);
     }
