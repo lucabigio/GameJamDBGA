@@ -5,11 +5,14 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     public Vector2Int GridPosition;
-    GameObject PipeSprite;
+    public GameObject PipeSprite;
     public bool taken;
+    public GameObject lastPipe;
+    public bool canBeClicked = true;
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,7 +25,8 @@ public class GridCell : MonoBehaviour
     {
         PipeSprite = Instantiate(pipe, transform.position, Quaternion.identity);
         PipeSprite.transform.parent = gameObject.transform;
-        PipeSprite.GetComponent<SpriteRenderer>().size =  new Vector2(0.43f, 0.43f);
+        PipeSprite.GetComponent<SpriteRenderer>().size =  new Vector2(1, 1);
+        lastPipe = PipeSprite;
     }
 
     public void SetPosition(int a, int b)
@@ -40,5 +44,74 @@ public class GridCell : MonoBehaviour
         Destroy(PipeSprite);
         PipeSprite = null;
         taken = false;
+    }
+
+    private void OnMouseOver()
+    {
+        if (canBeClicked)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (taken)
+                {
+                    if (GetComponentInParent<GridController>().hasPickedUpPiece)
+                    {
+                        GameObject thisPipe = PipeSprite;
+                        lastPipe = GameObject.FindGameObjectWithTag("DraggablePipe");
+                        SetPipe(lastPipe);
+                        taken = true;
+                        lastPipe.GetComponent<Pipe>().CanBeMoved = false;
+                        GameObject clearMouse = GameObject.FindGameObjectWithTag("DraggablePipe");
+                        if (clearMouse)
+                        {
+                            Destroy(clearMouse);
+                        }
+                        lastPipe.tag = "Pipe";
+
+                        thisPipe.GetComponent<Pipe>().CanBeMoved = true;
+                        thisPipe.transform.parent = null;
+                        //thisPipe.GetComponent<GridCell>().taken = false;
+                        thisPipe.tag = "DraggablePipe";
+                        GetComponentInParent<GridController>().hasPickedUpPiece = true;
+
+                    }
+                    else
+                    {
+                        PipeSprite.GetComponent<Pipe>().CanBeMoved = true;
+                        PipeSprite.transform.parent = null;
+                        taken = false;
+                        PipeSprite.tag = "DraggablePipe";
+                        GetComponentInParent<GridController>().hasPickedUpPiece = true;
+                    }
+                }
+                else
+                {
+                    lastPipe = GameObject.FindGameObjectWithTag("DraggablePipe");
+                    if (lastPipe)
+                    {
+                        SetPipe(lastPipe);
+                        taken = true;
+                        lastPipe.GetComponent<Pipe>().CanBeMoved = false;
+                        GameObject clearMouse = GameObject.FindGameObjectWithTag("DraggablePipe");
+                        if (clearMouse)
+                        {
+                            Destroy(clearMouse);
+                        }
+                        GetComponentInParent<GridController>().hasPickedUpPiece = false;
+                        lastPipe.tag = "Pipe";
+                    }
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                if (taken)
+                {
+                    GameObject newPipe = PipeSprite;
+                    Destroy(PipeSprite);
+                    PipeSprite = null;
+                    SetPipe(newPipe.GetComponent<Pipe>().ShowNext());
+                }
+            }
+        }
     }
 }

@@ -182,9 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8df8d7dd14d52c4db3724c6e2f99750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasPickedUpPiece: 0
   gridCell: {fileID: 5336073258819846569, guid: f1a5899677ce50843ad582a32646b4ce, type: 3}
-  height: 13
-  width: 13
+  height: 6
+  width: 6
   cellSpawnOffset: 1
   Pipes:
   - {fileID: 886952313621619842, guid: 82e32b66b84a27541b5f2ce160933b90, type: 3}

@@ -12,24 +12,32 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     GameObject nextPipe;
 
-    
-    void Update()
+    public bool CanBeMoved;
+    Vector3 mousePosition;
+
+    void FixedUpdate()
     {
         //Da rimuovere nella build, solo test
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (CanBeMoved)
         {
-            ShowNext();
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
         }
     }
 
-    public void ShowNext()
+    public GameObject ShowNext()
     {
         if (hasNext)
         {
             //TileController.Instance.TileObject = Instantiate(NextPipe, transform.position, Quaternion.identity);
             //Destroy(TileController.Instance.TileObject)
-            Instantiate(nextPipe, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            //Instantiate(nextPipe, transform.position, Quaternion.identity);
+            //Destroy(gameObject);
+            return nextPipe;
         }
+        return null;
     }
+
+    
 }

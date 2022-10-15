@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridController : MonoBehaviour
+public class GridController : MonoSingleton<GridController>
 {
-    GameObject[,] grid;
+
+    public bool hasPickedUpPiece = false;
+    public GameObject[,] grid;
     public GameObject gridCell;
     public int height = 0;
     public int width = 0;
@@ -14,14 +16,29 @@ public class GridController : MonoBehaviour
     Vector3 startingPoint;
     [SerializeField]
     List<GameObject> usedPipes;
-    [SerializeField] private Transform _cam;
+    [SerializeField] 
+    private Transform _cam;
+    List<Vector2Int> pipePositions;
+
+    Vector2Int startPosition;
+    Vector2Int endPosition;
+
     void Awake()
     {
         
+    }
+
+    private void Start()
+    {
+        hasPickedUpPiece = false;
         CreateGrid();
-        FindPath();
+        CreatePerfectPath((int)(grid.GetLength(0)* grid.GetLength(1))/3);
+        //FindPath();
+        //InsertPipe(pipePositions);
         CenterCamera();
     }
+
+    
 
     void Update()
     {
@@ -47,9 +64,22 @@ public class GridController : MonoBehaviour
         }
     }
 
+
+    private void ResetGrid()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                grid[i, j].GetComponent<GridCell>().GetComponent<SpriteRenderer>().color = Color.white;
+                grid[i, j].GetComponent<GridCell>().taken = false;
+            }
+        }
+    }
+
     void FindPath()
     {
-        List<Vector2Int> pipePositions = new List<Vector2Int>();
+        pipePositions = new List<Vector2Int>();
         int yCurrentPosition = 0;
         GridCell nextCell = grid[Random.Range(0, grid.GetLength(0)), 0].GetComponent<GridCell>();
         nextCell.GetComponent<SpriteRenderer>().color = Color.red;
@@ -73,6 +103,45 @@ public class GridController : MonoBehaviour
         InsertPipe(pipePositions);
         
     }
+
+    void CreatePerfectPath(int tilesNumber)
+    {
+        tilesNumber = FindPerfectPath();
+        while (tilesNumber != 12)
+        {
+            ResetGrid();
+            tilesNumber = FindPerfectPath();
+            Debug.Log(tilesNumber + " ," + pipePositions.Count);
+        }
+        InsertPipe(pipePositions);
+    }
+
+    int FindPerfectPath()
+    {
+        pipePositions = new List<Vector2Int>();
+        int yCurrentPosition = 0;
+        GridCell nextCell = grid[Random.Range(0, grid.GetLength(0)), 0].GetComponent<GridCell>();
+        nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+        nextCell.taken = true;
+        pipePositions.Add(nextCell.GetPosition());
+        Vector2Int nextPos = CheckNeighbours(nextCell);
+        pipePositions.Add(nextPos);
+        while (yCurrentPosition < grid.GetLength(1) && yCurrentPosition >= 0)
+        {
+            yCurrentPosition = nextPos.y;
+            if (yCurrentPosition < grid.GetLength(1) && yCurrentPosition >= 0)
+            {
+                nextCell = grid[nextPos.x, nextPos.y].GetComponent<GridCell>();
+                nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+                nextCell.taken = true;
+                nextPos = CheckNeighbours(nextCell);
+                pipePositions.Add(nextPos);
+
+            }
+        }
+        return pipePositions.Count;
+        //InsertPipe(pipePositions);
+    }
     private void InsertPipe(List<Vector2Int> pipePositions)
     {
         usedPipes = new List<GameObject>();
@@ -83,16 +152,19 @@ public class GridController : MonoBehaviour
                 if (pipePositions[i].y < pipePositions[i + 1].y && pipePositions[i].x == pipePositions[i + 1].x)
                 {
                     grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().SetPipe(Pipes[0]);
+                    startPosition = new Vector2Int(pipePositions[i].x, pipePositions[i].y);
                     usedPipes.Add(Pipes[0]);
                 }
                 else if (pipePositions[i].y == pipePositions[i + 1].y && pipePositions[i].x < pipePositions[i + 1].x)
                 {
                     grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().SetPipe(Pipes[2]);
+                    startPosition = new Vector2Int(pipePositions[i].x, pipePositions[i].y); 
                     usedPipes.Add(Pipes[2]);
                 }
                 else
                 {
                     grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().SetPipe(Pipes[1]);
+                    startPosition = new Vector2Int(pipePositions[i].x, pipePositions[i].y);
                     usedPipes.Add(Pipes[1]);
                 }
             }
@@ -142,6 +214,7 @@ public class GridController : MonoBehaviour
             }
         }
         grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().SetPipe(Pipes[0]);
+        endPosition = new Vector2Int(pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y);
         usedPipes.Add(Pipes[0]);
         RandomizePipes();
     }
@@ -158,7 +231,15 @@ public class GridController : MonoBehaviour
                 }
             }
         }
-        for(int i = 0; i < usedPipes.Count; i++)
+
+        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[0]);
+        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().taken = true;
+        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().canBeClicked = false;
+        grid[endPosition.x, endPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[usedPipes.Count - 1]);
+        grid[endPosition.x, endPosition.y].GetComponent<GridCell>().taken = true;
+        grid[endPosition.x, endPosition.y].GetComponent<GridCell>().canBeClicked = false;
+
+        for (int i = 1; i < usedPipes.Count - 1; i++)
         {
             bool foundPlace = false;
             while(!foundPlace)
@@ -166,12 +247,13 @@ public class GridController : MonoBehaviour
                 Vector2Int index = new Vector2Int(Random.Range(0, grid.GetLength(0)), Random.Range(0, grid.GetLength(1)));
                 if (!grid[index.x, index.y].GetComponent<GridCell>().taken)
                 {
-                    grid[index.x, index.y].GetComponent<GridCell>().SetPipe(usedPipes[i]);
-                    grid[index.x, index.y].GetComponent<GridCell>().taken = true;
+                        grid[index.x, index.y].GetComponent<GridCell>().SetPipe(usedPipes[i]);
+                        grid[index.x, index.y].GetComponent<GridCell>().taken = true;
                     foundPlace = true;
                 }
             }
         }
+        
     }
 
     private Vector2Int CheckNeighbours(GridCell nextCell)
