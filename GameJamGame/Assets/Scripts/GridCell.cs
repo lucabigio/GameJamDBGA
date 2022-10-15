@@ -29,6 +29,7 @@ public class GridCell : MonoBehaviour
 
     public void SetPipe(GameObject pipe)
     {
+        //taken = true;
         PipeSprite = Instantiate(pipe, transform.position, Quaternion.identity);
         PipeSprite.transform.parent = gameObject.transform;
         PipeSprite.GetComponent<SpriteRenderer>().size =  new Vector2(1, 1);

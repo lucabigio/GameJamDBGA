@@ -13,7 +13,7 @@ public class LevelController : MonoSingleton<LevelController>
     public void StartLevel()
     {
         TimerController.Instance.ResetTimer();
-        FindObjectOfType<GridController>().CreateLevel(7, 7);  
+        FindObjectOfType<GridController>().CreateLevel(5, 5);  
         //Setting the timer
         TimerController.Instance.timeToCount = 120;
         TimerController.Instance.StartTimer();
