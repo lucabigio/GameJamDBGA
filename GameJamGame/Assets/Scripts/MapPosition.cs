@@ -15,7 +15,7 @@ public class MapPosition
     private void CalculateNeighbours(Vector2Int topLeftCorner, Vector2Int bottomRightCorner)
     {
         AddIfPossibleNeighbour(Vector2Int.left, topLeftCorner, bottomRightCorner);
-        AddIfPossibleNeighbour(Vector2Int.up, topLeftCorner, bottomRightCorner);
+        //AddIfPossibleNeighbour(Vector2Int.up, topLeftCorner, bottomRightCorner);
         AddIfPossibleNeighbour(Vector2Int.down, topLeftCorner, bottomRightCorner);
         AddIfPossibleNeighbour(Vector2Int.right, topLeftCorner, bottomRightCorner);
     }

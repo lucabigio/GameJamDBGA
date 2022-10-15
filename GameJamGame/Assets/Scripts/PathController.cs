@@ -39,12 +39,9 @@ public class PathController : MonoBehaviour
             MapPosition temporaryPos = new MapPosition(currentPathPos, topLeftCorner, bottomRightCorner);
             Vector2Int newPos = Vector2Int.zero;
             //Choosing a random direction until it is not in path;
-            do
-            {
-                //Getting a random direction to go
-                newPos = temporaryPos.Neighbours[Random.Range(0, temporaryPos.Neighbours.Count - 1)];
+            
+            newPos = temporaryPos.Neighbours[Random.Range(0, temporaryPos.Neighbours.Count - 1)];
 
-            } while (path.Contains(newPos));
 
             path.Add(newPos);
             currentPathPos = newPos;            
