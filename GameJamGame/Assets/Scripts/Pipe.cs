@@ -6,7 +6,8 @@ public class Pipe : MonoBehaviour
 {
     [SerializeField]
     public bool isOpenRight, isOpenLeft, isOpenUp, isOpenDown;
-
+    [SerializeField]
+    public Sprite[] possibleSprites;
     [SerializeField]
     bool hasNext;
     [SerializeField]
@@ -14,10 +15,18 @@ public class Pipe : MonoBehaviour
 
     public bool CanBeMoved;
     Vector3 mousePosition;
+    public int spriteIndex;
+
     public bool hasCurrent { get; set; }
     private void Start()
     {
         hasCurrent = false;
+    }
+
+    public void SetSprite(int n)
+    {
+        spriteIndex = n;
+        GetComponent<SpriteRenderer>().sprite = possibleSprites[n];
     }
 
     void FixedUpdate()
@@ -37,11 +46,13 @@ public class Pipe : MonoBehaviour
     {
         if (hasNext)
         {
+            GameObject pipeToShow = nextPipe;
+            pipeToShow.GetComponent<Pipe>().SetSprite(spriteIndex);
             //TileController.Instance.TileObject = Instantiate(NextPipe, transform.position, Quaternion.identity);
             //Destroy(TileController.Instance.TileObject)
             //Instantiate(nextPipe, transform.position, Quaternion.identity);
             //Destroy(gameObject);
-            return nextPipe;
+            return pipeToShow;
         }
         return null;
     }
