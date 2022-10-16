@@ -35,6 +35,13 @@ public class GridController : MonoSingleton<GridController>
     Vector2Int startPosition;
     Vector2Int endPosition;
 
+    [SerializeField]
+    GameObject startPipe;
+    GameObject startPipeInstance;
+    [SerializeField]
+    GameObject endPipe;
+    GameObject endPipeInstance;
+
     void Awake()
     {
         
@@ -206,6 +213,16 @@ public class GridController : MonoSingleton<GridController>
     }
     private void InsertPipe(List<Vector2Int> pipePositions)
     {
+        if (startPipeInstance != null)
+        {
+            Destroy(startPipeInstance);
+            startPipeInstance = null;
+        }
+        if (endPipeInstance != null)
+        {
+            Destroy(endPipeInstance);
+            endPipeInstance = null;
+        }
         notMovingCells = new List<GridCell>();
         usedPipes = new List<GameObject>();
         for (int i = 0; i < pipePositions.Count - 2; i++)
@@ -365,10 +382,14 @@ public class GridController : MonoSingleton<GridController>
                 }
             }
         }
-        grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().SetPipe(Pipes[0]);
-        grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().taken = true;
-        grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().canBeClicked = false;
+        GridCell lastCell = grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>();
+        lastCell.taken = true;
+        lastCell.canBeClicked = false;
+        lastCell.canRotate = false;
+        lastCell.SetPipe(Pipes[0]);
         endPosition = new Vector2Int(pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y);
+        startPipeInstance = Instantiate(startPipe, lastCell._AnchorUp.transform.position + new Vector3(0,0,1), Quaternion.Euler(0f,0f,180f));
+        //startPipe.transform.position = new Vector3(startPipe.transform.position.x, startPipe.transform.position.y, 1);
         //usedPipes.Add(Pipes[0]);
         //Debug.Log(notMovingCells.Count);
         
@@ -388,10 +409,11 @@ public class GridController : MonoSingleton<GridController>
             }
         }
 
-        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[0]);
         grid[startPosition.x, startPosition.y].GetComponent<GridCell>().taken = true;
         grid[startPosition.x, startPosition.y].GetComponent<GridCell>().canBeClicked = false;
-
+        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().canRotate = false;
+        grid[startPosition.x, startPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[0]);
+        endPipeInstance = Instantiate(startPipe, grid[startPosition.x, startPosition.y].GetComponent<GridCell>()._AnchorDown.transform.position + new Vector3(0, 0, 1), Quaternion.Euler(0f, 0f, 0f));
         //Debug.Log(usedPipes.Count);
         //grid[endPosition.x, endPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[usedPipes.Count - 2]);
         //grid[endPosition.x, endPosition.y].GetComponent<GridCell>().taken = true;

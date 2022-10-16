@@ -13,6 +13,8 @@ public class GridCell : MonoBehaviour
     [SerializeField] GameObject _highlight;
     //[SerializeField] GameObject _cantMoved;
     //[SerializeField] GameObject _canOnlyRotate;
+    [SerializeField] public GameObject _AnchorUp;
+    [SerializeField] public GameObject _AnchorDown;
 
 
     void Start()
