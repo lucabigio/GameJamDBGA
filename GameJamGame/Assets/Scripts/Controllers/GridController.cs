@@ -37,10 +37,12 @@ public class GridController : MonoSingleton<GridController>
 
     [SerializeField]
     GameObject startPipe;
-    GameObject startPipeInstance;
+    public GameObject startPipeInstance;
     [SerializeField]
     GameObject endPipe;
-    GameObject endPipeInstance;
+    public GameObject endPipeInstance;
+
+
 
     void Awake()
     {
@@ -389,6 +391,7 @@ public class GridController : MonoSingleton<GridController>
         lastCell.SetPipe(Pipes[0]);
         endPosition = new Vector2Int(pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y);
         startPipeInstance = Instantiate(startPipe, lastCell._AnchorUp.transform.position + new Vector3(0,0,1), Quaternion.Euler(0f,0f,180f));
+        
         //startPipe.transform.position = new Vector3(startPipe.transform.position.x, startPipe.transform.position.y, 1);
         //usedPipes.Add(Pipes[0]);
         //Debug.Log(notMovingCells.Count);
@@ -505,6 +508,15 @@ public class GridController : MonoSingleton<GridController>
         {
             _cam.gameObject.GetComponent<Camera>().orthographicSize += 2;
         }
+        //if(grid.GetLength(0) == 9)
+        //{
+        //    //_cam.gameObject.GetComponent<Camera>().orthographicSize += 1;
+        //}
+        resizeCamera();
+    }
+
+    public void resizeCamera()
+    {
         _cam.gameObject.GetComponent<Camera>().orthographicSize += 1;
     }
 

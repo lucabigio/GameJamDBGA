@@ -16,13 +16,19 @@ public class Pipe : MonoBehaviour
     public bool CanBeMoved;
     Vector3 mousePosition;
     public int spriteIndex;
-
+    Animator animator;
     public bool hasCurrent { get; set; }
     private void Start()
     {
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
         hasCurrent = false;
     }
 
+    public void Animate()
+    {
+        animator.enabled = true;
+    }
     public void SetSprite(int n)
     {
         spriteIndex = n;
