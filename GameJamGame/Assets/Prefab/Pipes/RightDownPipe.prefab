@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 23a7be63259e61f4d8811d452e3c87c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d90f630c62f1ca74a80f380068aa59e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   hasNext: 1
   nextPipe: {fileID: 82940239589732300, guid: 10bb2d05b90676c48b0138c7ee5fd234, type: 3}
   CanBeMoved: 0
-  spriteIndex: 0
+  spriteIndex: 2
 --- !u!95 &1833914666007232373
 Animator:
   serializedVersion: 3
