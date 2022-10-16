@@ -162,7 +162,7 @@ public class GridController : MonoSingleton<GridController>
             {
                 notMovingIndexes[i] = pipePositions[randIndex];
             }
-            Debug.Log(notMovingIndexes[i]);
+            //Debug.Log(notMovingIndexes[i]);
         }
         //notMovingTileNumber = (tilesNumber - 2) / notMovingTileNumber;
         InsertPipe(pipePositions);
@@ -370,7 +370,7 @@ public class GridController : MonoSingleton<GridController>
         grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().canBeClicked = false;
         endPosition = new Vector2Int(pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y);
         //usedPipes.Add(Pipes[0]);
-        Debug.Log(notMovingCells.Count);
+        //Debug.Log(notMovingCells.Count);
         
         RandomizePipes();
     }
@@ -392,7 +392,7 @@ public class GridController : MonoSingleton<GridController>
         grid[startPosition.x, startPosition.y].GetComponent<GridCell>().taken = true;
         grid[startPosition.x, startPosition.y].GetComponent<GridCell>().canBeClicked = false;
 
-        Debug.Log(usedPipes.Count);
+        //Debug.Log(usedPipes.Count);
         //grid[endPosition.x, endPosition.y].GetComponent<GridCell>().SetPipe(usedPipes[usedPipes.Count - 2]);
         //grid[endPosition.x, endPosition.y].GetComponent<GridCell>().taken = true;
         //grid[endPosition.x, endPosition.y].GetComponent<GridCell>().canBeClicked = false;
@@ -504,7 +504,7 @@ public class GridController : MonoSingleton<GridController>
                 case FlowDirection.Top:
                     if (attachedPipe.isOpenUp)
                     {
-                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
                         attachedPipe.hasCurrent = true;
                         bool won = false;
                         //Dai corrente nelle altre direzioni
@@ -519,7 +519,7 @@ public class GridController : MonoSingleton<GridController>
                 case FlowDirection.Left:
                     if (attachedPipe.isOpenLeft)
                     {
-                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
                         attachedPipe.hasCurrent = true;
                         //Dai corrente nelle altre direzioni
                         bool won = false;
@@ -535,7 +535,7 @@ public class GridController : MonoSingleton<GridController>
                 case FlowDirection.Right:
                     if (attachedPipe.isOpenRight)
                     {
-                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
                         attachedPipe.hasCurrent = true;
                         bool won = false;
                         //Dai corrente nelle altre direzioni
@@ -550,7 +550,7 @@ public class GridController : MonoSingleton<GridController>
                 case FlowDirection.Bottom:
                     if (attachedPipe.isOpenDown)
                     {
-                        pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+                        //pipeSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
                         attachedPipe.hasCurrent = true;
                         //Dai corrente nelle altre direzioni
                         bool won = false;

@@ -21,10 +21,8 @@ public class LevelController : MonoSingleton<LevelController>
 
     public void StartLevel()
     {
-        TimerController.Instance.ResetTimer();
+        ScoreController.Instance.setupTimerTime();
         FindObjectOfType<GridController>().CreateLevel(currentSize, currentSize);  
-        //Setting the timer
-        TimerController.Instance.timeToCount = 120;
         TimerController.Instance.StartTimer();
         TimerController.Instance.RequestTime();
     }
@@ -46,17 +44,13 @@ public class LevelController : MonoSingleton<LevelController>
 
     private IEnumerator WonCoroutine()
     {
-        //Add Score
-        Debug.Log("YOU WON THE LEVEL. 50 POINTS HAS BEEN ASSIGNED TO YOU");
-        UIGameController.Instance.updateHighscoreText(50);
         int pathLength = FindObjectOfType<GridController>().pathLength - 1;
         int pipesUsed = FindObjectOfType<GridController>().howMuchPipesAreUsed();
-        Debug.Log("Created Path length:" + pathLength + " while Pipes used: "+pipesUsed);
         TimerController.Instance.pauseTime();
         float timeElapsed = TimerController.Instance.timeElapsedFromRequest();
-        Debug.Log("Time elapsed: "+timeElapsed);
-        yield return new WaitForSeconds(4f);
-        TimerController.Instance.AddTime(10);
+        ScoreController.Instance.assignScore(currentLevel,currentSize, currentSize,timeElapsed,pipesUsed, pathLength);
+
+        yield return new WaitForSeconds(1f);
         FindObjectOfType<GridController>().CreateLevel(currentSize, currentSize);
         TimerController.Instance.continueTime();
         TimerController.Instance.RequestTime();

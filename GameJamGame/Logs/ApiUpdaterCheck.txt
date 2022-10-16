@@ -613,3 +613,83 @@ C# parse time         : 210ms
 candidates check time : 60ms
 console write time    : 0ms
 
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:40:38 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 159,9674ms
+moved types parse time: 65ms
+candidates parse time : 12ms
+C# parse time         : 225ms
+candidates check time : 33ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:41:14 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 101,7438ms
+moved types parse time: 64ms
+candidates parse time : 13ms
+C# parse time         : 226ms
+candidates check time : 47ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:41:17 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 116,1628ms
+moved types parse time: 66ms
+candidates parse time : 13ms
+C# parse time         : 208ms
+candidates check time : 46ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:42:14 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 94,5205ms
+moved types parse time: 79ms
+candidates parse time : 14ms
+C# parse time         : 195ms
+candidates check time : 49ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:42:33 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 96,301ms
+moved types parse time: 70ms
+candidates parse time : 15ms
+C# parse time         : 222ms
+candidates check time : 67ms
+console write time    : 1ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:42:37 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 89,7787ms
+moved types parse time: 70ms
+candidates parse time : 13ms
+C# parse time         : 224ms
+candidates check time : 55ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:43:10 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 91,7952ms
+moved types parse time: 115ms
+candidates parse time : 17ms
+C# parse time         : 209ms
+candidates check time : 53ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 16/10/2022 11:43:16 : Starting C:/Program Files/Microsoft Visual Studio/2020.3.33f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 95,7596ms
+moved types parse time: 66ms
+candidates parse time : 14ms
+C# parse time         : 215ms
+candidates check time : 47ms
+console write time    : 0ms
+
