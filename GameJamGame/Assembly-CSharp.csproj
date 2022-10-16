@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIGameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\ScoreController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
