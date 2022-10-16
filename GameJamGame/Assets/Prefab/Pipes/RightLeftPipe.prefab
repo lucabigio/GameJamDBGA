@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 394887946048364228}
   - component: {fileID: 394887946048364229}
   - component: {fileID: 394887946048364218}
+  - component: {fileID: -1518259712895473200}
   m_Layer: 0
   m_Name: RightLeftPipe
   m_TagString: Pipe
@@ -107,3 +108,22 @@ MonoBehaviour:
   nextPipe: {fileID: 886952313621619842, guid: 82e32b66b84a27541b5f2ce160933b90, type: 3}
   CanBeMoved: 0
   spriteIndex: 2
+--- !u!95 &-1518259712895473200
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394887946048364219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ffca3a48543432d44b29bc7d62a081d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

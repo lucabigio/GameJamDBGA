@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 82940239589732297}
   - component: {fileID: 82940239589732298}
   - component: {fileID: 82940239589732299}
+  - component: {fileID: 5478087387763268478}
   m_Layer: 0
   m_Name: RightUpPipe
   m_TagString: Pipe
@@ -107,3 +108,22 @@ MonoBehaviour:
   nextPipe: {fileID: 4611765867412124683, guid: 6d78760309321874b86bfcfaaa05e4ec, type: 3}
   CanBeMoved: 0
   spriteIndex: 0
+--- !u!95 &5478087387763268478
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82940239589732300}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a4675bebc8e9f845882a747305776d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
