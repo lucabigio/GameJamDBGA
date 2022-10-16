@@ -31,7 +31,7 @@ public class LevelController : MonoSingleton<LevelController>
     void Start()
     {
         AudioController.Instance.PlayMusic(4, true);
-        StartLevel();
+        
     }
 
     public void Lose()
@@ -108,7 +108,7 @@ public class LevelController : MonoSingleton<LevelController>
 
     IEnumerator AnimationRoutine(List<GridCell> list)
     {
-
+        AudioController.Instance.Play(5);
         barrelPipe.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         FindObjectOfType<GridController>().startPipeInstance.GetComponent<fixepipe>().fill();
@@ -132,6 +132,8 @@ public class LevelController : MonoSingleton<LevelController>
         rightGlass[1].SetActive(false);
         leftGlass[0].SetActive(true);
         rightGlass[0].SetActive(true);
+        //AudioController.Instance.Stop(5);
+        AudioController.Instance.Play(6);
         yield return new WaitForSeconds(1f);
 
         leftGlass[0].SetActive(false);
