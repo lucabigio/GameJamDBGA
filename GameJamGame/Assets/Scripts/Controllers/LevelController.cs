@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LevelController : MonoSingleton<LevelController>
@@ -13,7 +14,6 @@ public class LevelController : MonoSingleton<LevelController>
     int maxSize = 11;
     [SerializeField]
     int increaseEvery = 5;
-
     void Start()
     {
         StartLevel();
@@ -49,7 +49,11 @@ public class LevelController : MonoSingleton<LevelController>
         TimerController.Instance.pauseTime();
         float timeElapsed = TimerController.Instance.timeElapsedFromRequest();
         ScoreController.Instance.assignScore(currentLevel,currentSize, currentSize,timeElapsed,pipesUsed, pathLength);
-
+        List<GridCell> gc = FindObjectOfType<GridController>().getPathUser();
+        for (int i = 0; i < gc.Count; i++)
+        {
+            //Animations Should Start Here
+        }
         yield return new WaitForSeconds(1f);
         FindObjectOfType<GridController>().CreateLevel(currentSize, currentSize);
         TimerController.Instance.continueTime();
