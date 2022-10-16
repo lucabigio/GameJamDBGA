@@ -270,7 +270,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 635a5d04a58ac614d95dda088162758e, type: 3}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
+  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1df9d1747a2ca45b5ee92e00a0593d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerBaseTime: 120
+  timerBaseTime: 60
   multiplierBaseScorePerLevel: 2
   bonusPointsScorePerTime: 5
   bonusPointsScorePerPipes: 5
