@@ -65,7 +65,10 @@ public class TimerController : MonoSingleton<TimerController>
                 int minutes = Mathf.FloorToInt(time / 60);
                 int seconds = Mathf.FloorToInt(time - minutes * 60f);
                 if (time <= 0)
+                {
                     endTimer = true;
+                    TimerEnded();
+                }
                 else
                 {
                     _text.text = string.Format("{0:0}:{1:00}", minutes, seconds);
@@ -76,6 +79,10 @@ public class TimerController : MonoSingleton<TimerController>
         }
     }
 
+    public void TimerEnded()
+    {
+        LevelController.Instance.Lose();
+    }
     public float timeElapsedFromRequest()
     {
         return Time.time - requestTime;

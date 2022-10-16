@@ -67,21 +67,30 @@ public class GridController : MonoSingleton<GridController>
         
     }
 
-    public void CreateLevel(int _h, int _w)
+    public void DestroyGrid()
     {
-        hasPickedUpPiece = false;
         if (grid != null && grid.Length > 0)
         {
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    Destroy(grid[i, j].GetComponent<GridCell>().PipeSprite);
-                    Destroy(grid[i, j]);
+                    if (grid[i, j] != null)
+                    {
+                        if (grid[i, j].GetComponent<GridCell>() != null)
+                            Destroy(grid[i, j].GetComponent<GridCell>().PipeSprite);
+                        Destroy(grid[i, j]);
+                    }
                 }
             }
             System.Array.Clear(grid, 0, grid.Length);
         }
+    }
+
+    public void CreateLevel(int _h, int _w)
+    {
+        hasPickedUpPiece = false;
+        DestroyGrid();
         height = _h;
         width = _w;
         CreateGrid();

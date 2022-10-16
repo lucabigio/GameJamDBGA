@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static System.Net.Mime.MediaTypeNames;
 
 public class LevelController : MonoSingleton<LevelController>
 {
@@ -18,17 +21,43 @@ public class LevelController : MonoSingleton<LevelController>
     int maxSize = 11;
     [SerializeField]
     int increaseEvery = 5;
-
     [SerializeField]
     GameObject[] leftGlass;
 
     [SerializeField]
     GameObject[] rightGlass;
+    public GameObject deathPanel;
+    public GameObject scoreTextInDeathPanel;
     void Start()
     {
+        AudioController.Instance.PlayMusic(4, true);
         StartLevel();
     }
 
+    public void Lose()
+    {
+        FindObjectOfType<GridController>().DestroyGrid();
+        deathPanel.SetActive(true);
+        scoreTextInDeathPanel.GetComponent<TextMeshProUGUI>().text = UIGameController.Instance.highScore.ToString();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        UnityEngine.Application.Quit();
+    }
+
+    public void RestartGame()
+    {
+        deathPanel.SetActive(false);
+        UIGameController.Instance.highScore = 0;
+        UIGameController.Instance.VisualizePointsInfo(0, 0, 0, 0, 0);
+        StartLevel();
+    }
     public void StartLevel()
     {
         barrelPipe.SetActive(false);
