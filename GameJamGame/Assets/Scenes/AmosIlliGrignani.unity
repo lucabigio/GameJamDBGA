@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1df9d1747a2ca45b5ee92e00a0593d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerBaseTime: 10
+  timerBaseTime: 30
   multiplierBaseScorePerLevel: 2
   bonusPointsScorePerTime: 5
   bonusPointsScorePerPipes: 5

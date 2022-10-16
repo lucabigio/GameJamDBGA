@@ -24,6 +24,7 @@ public class LevelController : MonoSingleton<LevelController>
 
     public void Lose()
     {
+        FindObjectOfType<GridController>().DestroyGrid();
         deathPanel.SetActive(true);
     }
 
