@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class LevelController : MonoSingleton<LevelController>
 {
-    
+    int currentLevel = 0;
+    [SerializeField]
+    int currentSize = 5;
+    [SerializeField]
+    int incrementSize = 2;
+    [SerializeField]
+    int maxSize = 11;
+    [SerializeField]
+    int increaseEvery = 5;
+
     void Start()
     {
         StartLevel();
@@ -13,15 +22,25 @@ public class LevelController : MonoSingleton<LevelController>
     public void StartLevel()
     {
         TimerController.Instance.ResetTimer();
-        FindObjectOfType<GridController>().CreateLevel(5, 5);  
+        FindObjectOfType<GridController>().CreateLevel(currentSize, currentSize);  
         //Setting the timer
         TimerController.Instance.timeToCount = 120;
         TimerController.Instance.StartTimer();
         TimerController.Instance.RequestTime();
     }
 
+    public void SetNext()
+    {
+        currentLevel++;
+        if(currentLevel % increaseEvery == 0 && currentSize < maxSize)
+        {
+            currentSize += incrementSize;
+        }
+    }
+
     public void Won()
     {
+        SetNext();
         StartCoroutine(WonCoroutine());
     }
 
@@ -38,7 +57,7 @@ public class LevelController : MonoSingleton<LevelController>
         Debug.Log("Time elapsed: "+timeElapsed);
         yield return new WaitForSeconds(4f);
         TimerController.Instance.AddTime(10);
-        FindObjectOfType<GridController>().CreateLevel(7, 7);
+        FindObjectOfType<GridController>().CreateLevel(currentSize, currentSize);
         TimerController.Instance.continueTime();
         TimerController.Instance.RequestTime();
     }

@@ -9,8 +9,11 @@ public class GridCell : MonoBehaviour
     public bool taken;
     public GameObject lastPipe;
     public bool canBeClicked = true;
+    public bool canRotate = true;
     [SerializeField] GameObject _highlight;
     [SerializeField] GameObject _cantMoved;
+    [SerializeField] GameObject _canOnlyRotate;
+
 
     void Start()
     {
@@ -26,7 +29,11 @@ public class GridCell : MonoBehaviour
     {
         _cantMoved.SetActive(true);
     }
-
+    public void setOnlyRotation()
+    {
+        _cantMoved.SetActive(false);
+        _canOnlyRotate.SetActive(true);
+    }
     public void SetPipe(GameObject pipe)
     {
         //taken = true;
@@ -116,6 +123,20 @@ public class GridCell : MonoBehaviour
                 if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
             }
             else if (Input.GetMouseButtonDown(1))
+            {
+                if (taken)
+                {
+                    GameObject newPipe = PipeSprite;
+                    Destroy(PipeSprite);
+                    PipeSprite = null;
+                    SetPipe(newPipe.GetComponent<Pipe>().ShowNext());
+                }
+                if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
+            }
+        }
+        else if (canRotate)
+        {
+            if (Input.GetMouseButtonDown(1))
             {
                 if (taken)
                 {

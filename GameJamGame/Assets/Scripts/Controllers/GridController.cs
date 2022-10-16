@@ -28,7 +28,7 @@ public class GridController : MonoSingleton<GridController>
     [SerializeField] 
     private Transform _cam;
     List<Vector2Int> pipePositions;
-
+    List<GridCell> notMovingCells;
     public int pathLength { get; set; }
     int notMovingTileNumber;
     Vector2Int[] notMovingIndexes;
@@ -76,7 +76,7 @@ public class GridController : MonoSingleton<GridController>
         height = _h;
         width = _w;
         CreateGrid();
-        pathLength = Random.Range( 2 * height, 4 * height  );
+        pathLength = Random.Range( 2 * height, 3 * height  );
         //pathLength = (int)(grid.GetLength(0) * grid.GetLength(1)) / 3;
         CreatePerfectPath(pathLength);
         _cam.gameObject.GetComponent<Camera>().orthographicSize -= 1;
@@ -121,7 +121,7 @@ public class GridController : MonoSingleton<GridController>
         pipePositions = new List<Vector2Int>();
         int yCurrentPosition = 0;
         GridCell nextCell = grid[Random.Range(0, grid.GetLength(0)), 0].GetComponent<GridCell>();
-        nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+        //nextCell.GetComponent<SpriteRenderer>().color = Color.red;
         nextCell.taken = true;
         pipePositions.Add(nextCell.GetPosition());
         Vector2Int nextPos = CheckNeighbours(nextCell);
@@ -132,7 +132,7 @@ public class GridController : MonoSingleton<GridController>
             if(yCurrentPosition < grid.GetLength(1) && yCurrentPosition >= 0)
             {
                 nextCell = grid[nextPos.x, nextPos.y].GetComponent<GridCell>();
-                nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+                //nextCell.GetComponent<SpriteRenderer>().color = Color.red;
                 nextCell.taken = true;
                 nextPos = CheckNeighbours(nextCell);
                 pipePositions.Add(nextPos);
@@ -145,7 +145,7 @@ public class GridController : MonoSingleton<GridController>
 
     void CreatePerfectPath(int tilesNumber)
     {
-        notMovingTileNumber = (tilesNumber - 2) / 4;
+        notMovingTileNumber = (tilesNumber - 2) / 2;
         int tileUsed = FindPerfectPath();
         notMovingIndexes = new Vector2Int[notMovingTileNumber];
         while (tileUsed != tilesNumber)
@@ -183,7 +183,7 @@ public class GridController : MonoSingleton<GridController>
         pipePositions = new List<Vector2Int>();
         int yCurrentPosition = 0;
         GridCell nextCell = grid[Random.Range(0, grid.GetLength(0)), 0].GetComponent<GridCell>();
-        nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+        //nextCell.GetComponent<SpriteRenderer>().color = Color.red;
         nextCell.taken = true;
         pipePositions.Add(nextCell.GetPosition());
         Vector2Int nextPos = CheckNeighbours(nextCell);
@@ -194,7 +194,7 @@ public class GridController : MonoSingleton<GridController>
             if (yCurrentPosition < grid.GetLength(1) && yCurrentPosition >= 0)
             {
                 nextCell = grid[nextPos.x, nextPos.y].GetComponent<GridCell>();
-                nextCell.GetComponent<SpriteRenderer>().color = Color.red;
+                //nextCell.GetComponent<SpriteRenderer>().color = Color.red;
                 nextCell.taken = true;
                 nextPos = CheckNeighbours(nextCell);
                 pipePositions.Add(nextPos);
@@ -206,6 +206,7 @@ public class GridController : MonoSingleton<GridController>
     }
     private void InsertPipe(List<Vector2Int> pipePositions)
     {
+        notMovingCells = new List<GridCell>();
         usedPipes = new List<GameObject>();
         for (int i = 0; i < pipePositions.Count - 2; i++)
         {
@@ -232,6 +233,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+
                     }
                     usedPipes.Add(Pipes[2]);
                 }
@@ -258,6 +260,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -272,6 +275,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -286,6 +290,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -303,6 +308,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -317,6 +323,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -334,6 +341,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -348,6 +356,7 @@ public class GridController : MonoSingleton<GridController>
                     {
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().canBeClicked = false;
                         grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>().setCantMove();
+                        notMovingCells.Add(grid[pipePositions[i].x, pipePositions[i].y].GetComponent<GridCell>());
                     }
                     else
                     {
@@ -361,6 +370,8 @@ public class GridController : MonoSingleton<GridController>
         grid[pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y].GetComponent<GridCell>().canBeClicked = false;
         endPosition = new Vector2Int(pipePositions[pipePositions.Count - 2].x, pipePositions[pipePositions.Count - 2].y);
         //usedPipes.Add(Pipes[0]);
+        Debug.Log(notMovingCells.Count);
+        
         RandomizePipes();
     }
 
@@ -400,7 +411,19 @@ public class GridController : MonoSingleton<GridController>
                 }
             }
         }
-
+        int onlyRotatingCellsNumber = notMovingCells.Count / 2;
+        for (int i = 0; i < onlyRotatingCellsNumber; i++)
+        {
+            int ranIndex = Random.Range(0, notMovingCells.Count);
+            notMovingCells[ranIndex].canRotate = true;
+            notMovingCells[ranIndex].setOnlyRotation();
+            for (int x = 0; x < Random.Range(0, 3); x++)
+            {
+                //notMovingCells[ranIndex].PipeSprite.GetComponent<Pipe>().ShowNext();
+                Destroy(notMovingCells[ranIndex].PipeSprite.GetComponent<Pipe>().gameObject);
+                notMovingCells[ranIndex].SetPipe(notMovingCells[ranIndex].PipeSprite.GetComponent<Pipe>().ShowNext());
+            }
+        }
     }
 
     private Vector2Int CheckNeighbours(GridCell nextCell)

@@ -31,6 +31,8 @@ public class Pipe : MonoBehaviour
         }
     }
 
+    
+
     public GameObject ShowNext()
     {
         if (hasNext)
