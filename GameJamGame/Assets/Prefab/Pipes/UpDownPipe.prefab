@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 886952313621619853}
   - component: {fileID: 886952313621619852}
   - component: {fileID: 886952313621619843}
+  - component: {fileID: 9139012788577966363}
   m_Layer: 0
   m_Name: UpDownPipe
   m_TagString: Pipe
@@ -107,3 +108,22 @@ MonoBehaviour:
   nextPipe: {fileID: 394887946048364219, guid: 0409fe65b67cae245af5eed5ca69dd6a, type: 3}
   CanBeMoved: 0
   spriteIndex: 2
+--- !u!95 &9139012788577966363
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886952313621619842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 40ff8620b588d20458754b5c5929b4cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
