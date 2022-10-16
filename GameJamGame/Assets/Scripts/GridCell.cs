@@ -11,8 +11,8 @@ public class GridCell : MonoBehaviour
     public bool canBeClicked = true;
     public bool canRotate = true;
     [SerializeField] GameObject _highlight;
-    [SerializeField] GameObject _cantMoved;
-    [SerializeField] GameObject _canOnlyRotate;
+    //[SerializeField] GameObject _cantMoved;
+    //[SerializeField] GameObject _canOnlyRotate;
 
 
     void Start()
@@ -27,12 +27,14 @@ public class GridCell : MonoBehaviour
     }
     public void setCantMove()
     {
-        _cantMoved.SetActive(true);
+        PipeSprite.GetComponent<Pipe>().SetSprite(1);
+        //_cantMoved.SetActive(true);
     }
     public void setOnlyRotation()
     {
-        _cantMoved.SetActive(false);
-        _canOnlyRotate.SetActive(true);
+        PipeSprite.GetComponent<Pipe>().SetSprite(2);
+        //_cantMoved.SetActive(false);
+        //_canOnlyRotate.SetActive(true);
     }
     public void SetPipe(GameObject pipe)
     {
@@ -40,6 +42,18 @@ public class GridCell : MonoBehaviour
         PipeSprite = Instantiate(pipe, transform.position, Quaternion.identity);
         PipeSprite.transform.parent = gameObject.transform;
         PipeSprite.GetComponent<SpriteRenderer>().size =  new Vector2(1, 1);
+        if(canBeClicked && canRotate)
+        {
+            PipeSprite.GetComponent<Pipe>().SetSprite(0);
+        }
+        else if (!canBeClicked && !canRotate)
+        {
+            PipeSprite.GetComponent<Pipe>().SetSprite(1);
+        }
+        else if (!canBeClicked && canRotate)
+        {
+            PipeSprite.GetComponent<Pipe>().SetSprite(2);
+        }
         lastPipe = PipeSprite;
     }
 

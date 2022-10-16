@@ -110,7 +110,7 @@ public class GridController : MonoSingleton<GridController>
         {
             for (int j = 0; j < height; j++)
             {
-                grid[i, j].GetComponent<GridCell>().GetComponent<SpriteRenderer>().color = Color.white;
+                //grid[i, j].GetComponent<GridCell>().GetComponent<SpriteRenderer>().color = Color.white;
                 grid[i, j].GetComponent<GridCell>().taken = false;
             }
         }
@@ -405,8 +405,12 @@ public class GridController : MonoSingleton<GridController>
                 Vector2Int index = new Vector2Int(Random.Range(0, grid.GetLength(0)), Random.Range(0, grid.GetLength(1)));
                 if (!grid[index.x, index.y].GetComponent<GridCell>().taken)
                 {
-                    grid[index.x, index.y].GetComponent<GridCell>().SetPipe(usedPipes[i]);
                     grid[index.x, index.y].GetComponent<GridCell>().taken = true;
+                    grid[index.x, index.y].GetComponent<GridCell>().canRotate = true;
+                    grid[index.x, index.y].GetComponent<GridCell>().canBeClicked = true;
+                    grid[index.x, index.y].GetComponent<GridCell>().SetPipe(usedPipes[i]);
+                    
+
                     foundPlace = true;
                 }
             }

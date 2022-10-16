@@ -64,12 +64,12 @@
     <Compile Include="Assets\Scripts\Controllers\TimerController.cs" />
     <Compile Include="Assets\Scripts\RandomPathScript.cs" />
     <Compile Include="Assets\Scripts\Utility\MonoSingleton.cs" />
+    <Compile Include="Assets\Scripts\Controllers\ScoreController.cs" />
     <Compile Include="Assets\Scripts\MapPosition.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIGameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\AudioController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\ScoreController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
