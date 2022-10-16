@@ -517,6 +517,7 @@ MonoBehaviour:
   incrementSize: 2
   maxSize: 11
   increaseEvery: 5
+  DummyObjectForDebug: {fileID: 6964917604790603378, guid: a70ba84e18605664e88df4b83d068b2c, type: 3}
 --- !u!4 &732363635
 Transform:
   m_ObjectHideFlags: 0

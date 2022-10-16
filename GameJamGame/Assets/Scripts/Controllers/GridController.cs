@@ -633,6 +633,65 @@ public class GridController : MonoSingleton<GridController>
         return pipeUsed;
     }
 
+    public List<GridCell> getPathUser()
+    {
+        List<GridCell> result = new List<GridCell>();
+        GridCell currGameObj = grid[endPosition.x, endPosition.y].GetComponent<GridCell>();
+        result.Add(currGameObj);
+        Vector2Int currPosition = endPosition;
+        FlowDirection currentFlowDir = FlowDirection.Top;
+        do
+        {
+            if (currGameObj.PipeSprite.GetComponent<Pipe>().isOpenRight && currentFlowDir != FlowDirection.Right)
+            {
+                if ((currPosition.x + 1) < width && grid[currPosition.x + 1, currPosition.y].GetComponent<GridCell>().PipeSprite != null)
+                {
+                    currGameObj = grid[currPosition.x + 1, currPosition.y].GetComponent<GridCell>();
+                    result.Add(currGameObj);
+                    currPosition = new Vector2Int(currPosition.x + 1, currPosition.y);
+                    currentFlowDir = FlowDirection.Left;
+                }
+            }
+
+            if (currGameObj.PipeSprite.GetComponent<Pipe>().isOpenLeft && currentFlowDir != FlowDirection.Left)
+            {
+                if ((currPosition.x - 1) >= 0 && grid[currPosition.x - 1, currPosition.y].GetComponent<GridCell>().PipeSprite != null)
+                {
+                    currGameObj = grid[currPosition.x - 1, currPosition.y].GetComponent<GridCell>();
+                    result.Add(currGameObj);
+                    currPosition = new Vector2Int(currPosition.x - 1, currPosition.y);
+                    currentFlowDir = FlowDirection.Right;
+                }
+            }
+
+            
+            if (currGameObj.PipeSprite.GetComponent<Pipe>().isOpenDown && currentFlowDir != FlowDirection.Bottom)
+            {
+                if ((currPosition.y - 1) >= 0  && grid[currPosition.x, currPosition.y - 1].GetComponent<GridCell>().PipeSprite != null)
+                {
+                    currGameObj = grid[currPosition.x, currPosition.y - 1].GetComponent<GridCell>();
+                    result.Add(currGameObj);
+                    currPosition = new Vector2Int(currPosition.x, currPosition.y - 1);
+                    currentFlowDir = FlowDirection.Top;
+
+                }
+            }
+
+            if (currGameObj.PipeSprite.GetComponent<Pipe>().isOpenUp && currentFlowDir != FlowDirection.Top)
+            {
+                if ((currPosition.y + 1) < height && grid[currPosition.x, currPosition.y + 1].GetComponent<GridCell>().PipeSprite != null)
+                {
+                    currGameObj = grid[currPosition.x, currPosition.y + 1].GetComponent<GridCell>();
+                    result.Add(currGameObj);
+                    currPosition = new Vector2Int(currPosition.x, currPosition.y + 1);
+                    currentFlowDir = FlowDirection.Bottom;
+                }
+            }
+
+
+        } while (currPosition != startPosition);
+        return result;
+    }
     public void clearPipes()
     {
         for (int i = 0; i < width; i++)
