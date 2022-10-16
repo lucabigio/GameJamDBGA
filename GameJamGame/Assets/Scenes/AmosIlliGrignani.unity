@@ -1469,7 +1469,7 @@ MonoBehaviour:
   multiplierBaseScorePerLevel: 2
   bonusPointsScorePerTime: 5
   bonusPointsScorePerPipes: 5
-  multiplierExpectedTimeToSolve: 1.5
+  multiplierExpectedTimeToSolve: 0.25
   multiplierSecondsGivenForLevel: 1.5
 --- !u!1 &2081394979
 GameObject:
@@ -1887,6 +1887,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 724c2cd8f9f48b64483232735e3590f6, type: 3}
   - {fileID: 8300000, guid: a719f09c64c7f8248abbea99480fabec, type: 3}
   - {fileID: 8300000, guid: 908ea3b1239719c449733fed9d65f044, type: 3}
+  - {fileID: 8300000, guid: fb63dba2054006b4fa473e24521b016f, type: 3}
   AudioSources:
   - {fileID: 8651626462404280913}
   - {fileID: 9089601509236355455}

@@ -604,6 +604,7 @@ public class GridController : MonoSingleton<GridController>
                 for (int j = 0; j < height; j++)
                 {
                     grid[i, j].GetComponent<GridCell>().canBeClicked = false;
+                    grid[i, j].GetComponent<GridCell>().canRotate = false;
                 }
             }
             return true;

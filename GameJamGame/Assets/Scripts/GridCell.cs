@@ -108,7 +108,7 @@ public class GridCell : MonoBehaviour
                         //thisPipe.GetComponent<GridCell>().taken = false;
                         thisPipe.tag = "DraggablePipe";
                         GetComponentInParent<GridController>().hasPickedUpPiece = true;
-
+                        AudioController.Instance.Play(0);
                     }
                     else
                     {
@@ -117,6 +117,7 @@ public class GridCell : MonoBehaviour
                         taken = false;
                         PipeSprite.tag = "DraggablePipe";
                         GetComponentInParent<GridController>().hasPickedUpPiece = true;
+                        AudioController.Instance.Play(1);
                     }
                 }
                 else
@@ -135,6 +136,7 @@ public class GridCell : MonoBehaviour
                         GetComponentInParent<GridController>().hasPickedUpPiece = false;
                         lastPipe.tag = "Pipe";
                     }
+                    AudioController.Instance.Play(0);
                 }
                 if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
             }
@@ -146,6 +148,7 @@ public class GridCell : MonoBehaviour
                     Destroy(PipeSprite);
                     PipeSprite = null;
                     SetPipe(newPipe.GetComponent<Pipe>().ShowNext());
+                    AudioController.Instance.Play(2);
                 }
                 if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
             }
@@ -160,8 +163,25 @@ public class GridCell : MonoBehaviour
                     Destroy(PipeSprite);
                     PipeSprite = null;
                     SetPipe(newPipe.GetComponent<Pipe>().ShowNext());
+                    AudioController.Instance.Play(2);
+                    
                 }
                 if (FindObjectOfType<GridController>().DoIWon()) LevelController.Instance.Won();
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                AudioController.Instance.Play(3);
+            }
+        }
+        else if(!canBeClicked && !canRotate)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                AudioController.Instance.Play(3);
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                AudioController.Instance.Play(3);
             }
         }
     }
