@@ -474,6 +474,7 @@ MonoBehaviour:
   Highscore: {fileID: 733984257}
   PointsGained: {fileID: 725307344}
   TimeUsed: {fileID: 1548871072}
+  highScore: 0
 --- !u!224 &655330566 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8102031585188304603, guid: c275e637e8b81aa4bb43ef141290b4ee, type: 3}
@@ -518,6 +519,7 @@ MonoBehaviour:
   maxSize: 11
   increaseEvery: 5
   deathPanel: {fileID: 7632452515714310858}
+  scoreTextInDeathPanel: {fileID: 1569781770}
 --- !u!4 &732363635
 Transform:
   m_ObjectHideFlags: 0
@@ -1345,6 +1347,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1898083764116097577, guid: c275e637e8b81aa4bb43ef141290b4ee, type: 3}
   m_PrefabInstance: {fileID: 8102031584702192605}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1569781770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7632452515535768945, guid: 6c7184375e3163c42bd527fa7572b050, type: 3}
+  m_PrefabInstance: {fileID: 7632452515714310857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1694634200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,6 +2168,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a719f09c64c7f8248abbea99480fabec, type: 3}
   - {fileID: 8300000, guid: 908ea3b1239719c449733fed9d65f044, type: 3}
   - {fileID: 8300000, guid: fb63dba2054006b4fa473e24521b016f, type: 3}
+  - {fileID: 8300000, guid: 692fa0013af645e478fe2954615c9ac4, type: 3}
   AudioSources:
   - {fileID: 8651626462404280913}
   - {fileID: 9089601509236355455}
@@ -2384,7 +2392,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

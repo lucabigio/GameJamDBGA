@@ -10,7 +10,7 @@ public class UIGameController : MonoSingleton<UIGameController>
     [SerializeField] GameObject Highscore;
     [SerializeField] GameObject PointsGained;
     [SerializeField] GameObject TimeUsed;
-    int highScore = 0;
+    public int highScore = 0;
 
     private void updateHighscoreText(int pointsToAdd)
     {
