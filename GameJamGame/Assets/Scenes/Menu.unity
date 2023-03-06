@@ -2089,6 +2089,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -51.4
       objectReference: {fileID: 0}
+    - target: {fileID: 4448831902259663187, guid: b79c268dee33faa48a17e36c0aa02e77, type: 3}
+      propertyPath: m_text
+      value: PIPISH PUB
+      objectReference: {fileID: 0}
     - target: {fileID: 4717854904536941698, guid: b79c268dee33faa48a17e36c0aa02e77, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1111.2
